@@ -11,7 +11,7 @@ public class pract3 {
         for(int i=0;i<n;i++){
             ls.add(obj.nextInt());
         }
-
+ 
         HashMap<Integer, Integer>  mp = new HashMap<>();
         for(int i=0;i<ls.size();i++)
         {
