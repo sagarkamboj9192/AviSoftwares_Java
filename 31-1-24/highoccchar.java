@@ -28,6 +28,15 @@ public class highoccchar {
         if(check){
             ch=s.charAt(0);
         }
+        else{
+            for(int i=0;i<s.length();i++)
+            {
+                if(mp.get(s.charAt(i)) == max){
+                    ch=s.charAt(i);
+                    break;
+                }
+            }
+        }
         System.out.println("Highest occurening character is : "+ch);
 
         
