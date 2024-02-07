@@ -43,7 +43,8 @@ public class remvoveadjdup {
                 remove(s, i + 1, j, ans);
             }
 
-        } else {
+        } 
+        else {
             ans.append(s.charAt(i));
             remove(s, i + 1, j, ans);
         }
@@ -72,5 +73,5 @@ public class remvoveadjdup {
         System.out.println(ans);
         sc.close();
     }
-           
+            
 }
