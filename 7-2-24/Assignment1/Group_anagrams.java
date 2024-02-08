@@ -21,6 +21,7 @@ public class Group_anagrams {
             if (!mp.containsKey(sortedStr)){
 
                 mp.put(sortedStr, new Vector<>());
+                // new Vector<>(mp.values());
             }
             
             mp.get(sortedStr).add(arr[i]);         
