@@ -1,52 +1,48 @@
 import java.util.*;
-abstract class Items
-{
-    // Abstraction concept is used 
+
+abstract class Items {
+    // Abstraction concept is used
     private int id;
-    private  String title;
+    private String title;
     private String author;
-    
-    public void setElements(int id, String title , String author)
-    {
+
+    public void setElements(int id, String title, String author) {
         this.id = id;
         this.title = title;
-        this.author =author;
-    }    
+        this.author = author;
+    }
 
     // this getter methods will get the properties
-    public int getid()
-    {
+    public int getid() {
         return this.id;
-    }                                                // Encapsulation method is used
-    public String gettitle()
-    {
+    } // Encapsulation method is used
+
+    public String gettitle() {
         return this.title;
     }
-    public String getauthor()
-    {
+
+    public String getauthor() {
         return this.author;
     }
 
     abstract void display();
 }
 
-class Disp extends Items                   // this is class to show details of item
-{                                                        
-    void display()
-    {
-        System.out.println("The id of the book is: "+getid());
-        System.out.println("The title of the book is: "+gettitle());
-        System.out.println("The author of the book is: "+getauthor());
+class Disp extends Items // this is class to show details of item
+{
+    void display() {
+        System.out.println("The id of the book is: " + getid());
+        System.out.println("The title of the book is: " + gettitle());
+        System.out.println("The author of the book is: " + getauthor());
     }
 }
 
-class Book extends Items
-{
+class Book extends Items {
     private String isbn;
 
     // adding isbn to the items
     public Book(int id, String title, String author, String isbn) {
-        super.setElements(id, title, author);  
+        super.setElements(id, title, author);
         this.isbn = isbn;
     }
 
@@ -54,138 +50,132 @@ class Book extends Items
         return isbn;
     }
 
-    void display()
-    {
+    void display() {
         // Polymorphism is achived...
 
         System.out.println("Book Details: ");
-        System.out.println("The id of the book is: "+getid());
-        System.out.println("The title of the book is: "+gettitle());
-        System.out.println("The author of the book is: "+getauthor());
-        System.out.println("The isbn of the book is: "+getIsbn());
+        System.out.println("The id of the book is: " + getid());
+        System.out.println("The title of the book is: " + gettitle());
+        System.out.println("The author of the book is: " + getauthor());
+        System.out.println("The isbn of the book is: " + getIsbn());
     }
-    
+
 }
 
-class Magazine extends Items
-{
+class Magazine extends Items {
     private int magnumber;
-    
-    public Magazine(int id, String title, String author, int magumber)
-    {
+
+    public Magazine(int id, String title, String author, int magumber) {
         super.setElements(id, title, author);
-        this.magnumber=magumber;
+        this.magnumber = magumber;
     }
 
-    public int getMagnumber(){
+    public int getMagnumber() {
         return magnumber;
     }
 
-    void display()
-    {
+    void display() {
         System.out.println("Magazine Details: ");
-        System.out.println("The id of the book is: "+getid());
-        System.out.println("The title of the book is: "+gettitle());
-        System.out.println("The author of the book is: "+getauthor());
-        System.out.println("The isbn of the book is: "+getMagnumber());
+        System.out.println("The id of the book is: " + getid());
+        System.out.println("The title of the book is: " + gettitle());
+        System.out.println("The author of the book is: " + getauthor());
+        System.out.println("The isbn of the book is: " + getMagnumber());
     }
 
 }
-
 
 public class LibraryManagement {
 
-static class LibraryMember {
-    private int memberId;
-    private String name;
-    private List<Items> checkedOutItems;
+    static class LibraryMember {
+        private int memberId;
+        private String name;
+        private List<Items> checkedOutItems;
 
-    public LibraryMember(int memberId, String name) {
-        this.memberId = memberId;
-        this.name = name;
-        this.checkedOutItems = new ArrayList<>();
+        public LibraryMember(int memberId, String name) {
+            this.memberId = memberId;
+            this.name = name;
+            this.checkedOutItems = new ArrayList<>();
+        }
+
+        public int getMemberId() {
+            return memberId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void checkOutItem(Items item) {
+            if (item != null) {
+                checkedOutItems.add(item);
+                System.out.println("Item checked out successfully!");
+            } else {
+                System.out.println("Item not available for checkout.");
+            }
+        }
+
+        public void returnItem(Items item) {
+            if (checkedOutItems.contains(item)) {
+                checkedOutItems.remove(item);
+                System.out.println("Item returned successfully!");
+            } else {
+                System.out.println("You haven't checked out this item.");
+            }
+        }
+
+        // public void displayCheckedOutItems() {
+        // if (checkedOutItems.isEmpty()) {
+        // System.out.println("No items checked out.");
+        // } else {
+        // System.out.println("Checked out items:");
+        // for (Items item : checkedOutItems) {
+        // System.out.println(item.gettitle());
+        // }
+        // }
+        // }
+
     }
 
-    public int getMemberId() {
-        return memberId;
-    }
+    static class Library {
+        private List<Items> inventory;
+        private List<LibraryMember> members;
 
-    public String getName() {
-        return name;
-    }
+        public Library() {
+            inventory = new ArrayList<>(); // initialization while creating of Library object
+            members = new ArrayList<>();
+        }
 
-    public void checkOutItem(Items item) {
-        if (item != null) {
-            checkedOutItems.add(item);
-            System.out.println("Item checked out successfully!");
-        } else {
-            System.out.println("Item not available for checkout.");
+        public List<Items> getInventory() {
+            return inventory;
+        }
+
+        // Getter for members
+        public List<LibraryMember> getMembers() {
+            return members;
+        }
+
+        // adding new item to the inventory
+        public void addItem(Items item) {
+            inventory.add(item);
+            System.out.println("Added to inventory: " + item.gettitle());
+        }
+
+        // registering new member
+        public void registerMember(LibraryMember member) {
+            members.add(member);
+            System.out.println("Registered member: " + member.getName());
+        }
+
+        public void checkOutItem(LibraryMember member, Items item) {
+            member.checkOutItem(item);
+        }
+
+        public void returnItem(LibraryMember member, Items item) {
+            member.returnItem(item);
         }
     }
 
-    public void returnItem(Items item) {
-        if (checkedOutItems.contains(item)) {
-            checkedOutItems.remove(item);
-            System.out.println("Item returned successfully!");
-        } else {
-            System.out.println("You haven't checked out this item.");
-        }
-    }
-
-    // public void displayCheckedOutItems() {
-    //     if (checkedOutItems.isEmpty()) {
-    //         System.out.println("No items checked out.");
-    //     } else {
-    //         System.out.println("Checked out items:");
-    //         for (Items item : checkedOutItems) {
-    //             System.out.println(item.gettitle());
-    //         }
-    //     }
-    // }
-
-
-}
-static class Library {
-    private List<Items> inventory;
-    private List<LibraryMember> members;
-
-    public Library() {
-        inventory = new ArrayList<>();   // initialization while creating of Library object
-        members = new ArrayList<>();
-    }
-
-    public List<Items> getInventory() {     
-        return inventory;
-    }
-
-    // Getter for members
-    public List<LibraryMember> getMembers() {
-        return members;                        
-    }
-
-    //adding new item to the inventory
-    public void addItem(Items item) {
-        inventory.add(item);
-        System.out.println("Added to inventory: " + item.gettitle());
-    }
-
-    // registering new member
-    public void registerMember(LibraryMember member) {
-        members.add(member);
-        System.out.println("Registered member: " + member.getName());
-    }
-
-    public void checkOutItem(LibraryMember member, Items item) {
-        member.checkOutItem(item);
-    }
-
-    public void returnItem(LibraryMember member, Items item) {
-        member.returnItem(item);
-    }
-}
-
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Library library = new Library();
 
@@ -204,10 +194,10 @@ static class Library {
                 case 1:
                     System.out.print("Enter the type of item (1 for Book, 2 for Magazine): ");
                     int itemType = sc.nextInt();
-                    sc.nextLine(); // for the  newline
+                    sc.nextLine(); // for the newline
                     System.out.print("Enter the id of the item: ");
                     int id = sc.nextInt();
-                    sc.nextLine(); 
+                    sc.nextLine();
                     System.out.print("Title of the item: ");
                     String title = sc.nextLine();
                     System.out.print("Author of the item: ");
@@ -218,21 +208,20 @@ static class Library {
                         String isbn = sc.nextLine();
                         Book book = new Book(id, title, author, isbn);
                         library.addItem(book);
-                    }  
-                    else if (itemType == 2) {
+                    } else if (itemType == 2) {
                         System.out.print("Enter the magzine number : ");
                         int magNumber = sc.nextInt();
                         Magazine magazine = new Magazine(id, title, author, magNumber);
                         library.addItem(magazine);
-                    } 
-                    else {
+                        magazine.display();
+                    } else {
                         System.out.println("Invalid item type!");
                     }
                     break;
                 case 2:
                     System.out.print("Enter the member ID: ");
                     int memberId = sc.nextInt();
-                    sc.nextLine(); 
+                    sc.nextLine();
                     System.out.print("Enter the name of the member: ");
                     String name = sc.nextLine();
                     LibraryMember member = new LibraryMember(memberId, name);
@@ -305,6 +294,5 @@ static class Library {
             }
         }
     }
-    
 
 }
