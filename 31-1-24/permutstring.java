@@ -1,5 +1,5 @@
 import java.util.HashMap;
-import java.util.Map;
+// import java.util.Map;
 import java.util.Scanner;
 
 public class permutstring {
@@ -27,6 +27,8 @@ public class permutstring {
         else{
             System.out.println("False");
         }
+
+        obj.close();
 
 
     }

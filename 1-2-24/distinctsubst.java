@@ -23,5 +23,6 @@ public class distinctsubst {
             }
         }
         System.out.println(count);
+        obj.close();
     }
 }

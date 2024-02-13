@@ -27,6 +27,8 @@ public class removechar {
         //     System.out.println(arr[j]);
         // }
         
+        System.out.println(i);
         System.out.println(arr);
+        obj.close();
     }
 }

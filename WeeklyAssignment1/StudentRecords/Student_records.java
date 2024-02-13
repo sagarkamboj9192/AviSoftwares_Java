@@ -27,6 +27,7 @@ class student_data {
     public static HashMap<Integer, String> lsttop = new HashMap<>();
     public static HashMap<Integer, String> persat = new HashMap<>();
     public static HashMap<Integer, Float> mp = new HashMap<>();
+    public static HashMap<Integer, String> attention = new HashMap<>();
 
 
 
@@ -49,8 +50,22 @@ class student_data {
 
         if(dbms < 30 || c < 30 || java < 30 || python <30){
             // if any student fails in any subject then it goes into personal attention list
+            if(dbms < 30){
+                attention.put(this.roll_no, "dbms");
+            }
+            if(c < 30){
+                attention.put(this.roll_no, "c");
+            }
+            if(java < 30){
+                attention.put(this.roll_no, "java");
+            }
+            if(python < 30){
+                attention.put(this.roll_no, "python");
+            }
+
             persattentlist.add(this.name);
             persat.put(this.roll_no, this.name);
+            
         }
     }
 
@@ -111,8 +126,17 @@ class student_data {
 
         for(int j:persat.keySet())
         {
+            boolean check = true;
             String s = persat.get(j);
-            System.out.println("Roll_no: "+j + " and name is : "+s);
+            for(int k:attention.keySet()){
+                if( j == k){
+                    System.out.println("Roll_no: "+j + " , Name : "+s+"  fails in subject: "+attention.get(k));
+                    check =false;
+                }
+            }
+            if(check){
+                System.out.println("Roll_no: "+j + " and name is : "+s);
+            }
         }
         System.out.println();
     }
@@ -161,6 +185,7 @@ public class Student_records
             obj.nextLine();
             System.out.print("Enter the name of "+(i+1)+" student: ");
             String name  = obj.nextLine();
+            // Try Catch block for handling invalid user inputs.....
             while (!ob[i].isValidName(name)) {
                 System.out.println("Invalid name format. Name should only contain letters, spaces");
                 System.out.print("Enter the name of " + (i + 1) + " student: ");

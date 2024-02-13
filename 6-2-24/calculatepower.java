@@ -23,7 +23,7 @@ public class calculatepower {
 
         calculatepower ob = new calculatepower();
         System.out.println(ob.powerof(n1, r, 1));
-
+        obj.close();
         
     }
 }

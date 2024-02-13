@@ -28,5 +28,6 @@ public class stringcompress {
             i++;       
         }
         System.out.println("The resulted string is : "+ans);
+        obj.close();
     }
 }

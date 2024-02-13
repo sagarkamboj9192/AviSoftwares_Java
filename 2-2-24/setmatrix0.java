@@ -21,7 +21,7 @@ public class setmatrix0
         //     }
         // }
 
-        Long z = Long.MAX_VALUE;
+        // Long z = Long.MAX_VALUE;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
 
@@ -55,5 +55,6 @@ public class setmatrix0
             }
             System.out.println();
         }
+        obj.close();
     }
 }

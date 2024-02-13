@@ -17,6 +17,7 @@ public class consecutdup {
             ans=ans+ch;
         }
         System.out.println(ans);
+        obj.close();
 
     }
 }

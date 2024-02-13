@@ -88,5 +88,6 @@ public class search2dmat {
         // else{
         //     System.out.println("NO");
         // }
+        obj.close();
     }
 }

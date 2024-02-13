@@ -38,7 +38,7 @@ public class highoccchar {
             }
         }
         System.out.println("Highest occurening character is : "+ch);
-
+        obj.close();
         
     }
 }
