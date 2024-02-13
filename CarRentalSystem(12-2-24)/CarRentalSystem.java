@@ -1,6 +1,8 @@
 import java.util.*;
 abstract class Vehicle
-{
+{   
+    // Here it is abstract class and get inherited by car clas
+
     private String make;
     private String model;
     private int manufacturingYear;
@@ -36,14 +38,14 @@ class Car extends Vehicle
 {
     private int numofSeats;
     private String fuelType;
-    private ArrayList<Vehicle> allVehicles;
+    // private ArrayList<Vehicle> allVehicles;
 
     public Car(String make, String model, int manufacturingYear , int rentalPrice, int numofSeats, String fuelType)
     {
         super.setElements(make, model, manufacturingYear, rentalPrice);
         this.fuelType=fuelType;
         this.numofSeats = numofSeats;
-        allVehicles = new ArrayList<>(); 
+        // allVehicles = new ArrayList<>(); 
     }
 
     public int getNumofSeats(){
@@ -75,16 +77,16 @@ class Car extends Vehicle
         return rentalcost;
     }
 
-    public void addVehicles(Vehicle veh){
-        allVehicles.add(veh);
-        System.out.println("This vehicle is added to Vehicles list");
-    } 
+    // public void addVehicles(Vehicle veh){
+    //     allVehicles.add(veh);
+    //     System.out.println("This vehicle is added to Vehicles list");
+    // } 
 
-    public void removeVehicle(Vehicle veh){
-        allVehicles.remove(veh);
-        System.out.println("This Vehicle is now not in Vehicles list");
+    // public void removeVehicle(Vehicle veh){
+    //     allVehicles.remove(veh);
+    //     System.out.println("This Vehicle is now not in Vehicles list");
 
-    }
+    // }
 }
 
 public class CarRentalSystem
@@ -112,6 +114,8 @@ public class CarRentalSystem
             return RentedVehicles;
         }
 
+        // add or remove vehicle in the customer list....
+
         public void addVehicle(Vehicle veh) {
             RentedVehicles.add(veh);
             System.out.println("This vehicle is added to Rented Vehicles list");
@@ -127,6 +131,8 @@ public class CarRentalSystem
 
     static class RentalAgency
     {
+        // We provide seperate list for all functions so that changes takes place in all list...
+
         private List<Vehicle> rentedVeh;
         private List<Vehicle> returningVehicle;
         private List<Customer> customers;
@@ -139,10 +145,12 @@ public class CarRentalSystem
             allVehicles = new ArrayList<>();
         }
 
+        // this will add rented vehicle to the rentedvehicle list
         public void addRentedVehicle(Vehicle vehicle) {
             rentedVeh.add(vehicle);
         }
 
+        // this will add returned vehicle to the returenedvehicle list
         public void addReturningVehicle(Vehicle vehicle) {
             returningVehicle.add(vehicle);
         }
@@ -164,6 +172,7 @@ public class CarRentalSystem
         }
 
 
+        // this function is called in main method that will further update other list......
         public void giveVehicleOnRent(Vehicle vehicle) {
             rentedVeh.add(vehicle);
             allVehicles.remove(vehicle);
@@ -180,6 +189,7 @@ public class CarRentalSystem
 
         public void addVehicleToAll(Vehicle vehicle) {
             allVehicles.add(vehicle);
+            System.out.println("This Vehicle is added to Vehicles List");
         }
 
     }
@@ -187,7 +197,7 @@ public class CarRentalSystem
 
     public static void main(String[] args)
     {
-        // CarRentalSystem obj= new CarRentalSystem();
+       
         RentalAgency rental = new RentalAgency();
         Scanner sc = new Scanner(System.in);
 
@@ -200,7 +210,8 @@ public class CarRentalSystem
             System.out.println("3. Give Vehicle to rent");
             System.out.println("4. Details of vehicles given to rent with their rent");
             System.out.println("5. Details of customer who had taken vehicle on rent");
-            System.out.println("6. Exit..");
+            System.out.println("6. Return vehicle from customer");
+            System.out.println("7. Exit..");
            
 
             System.out.print("Enter your choice: ");
@@ -242,6 +253,8 @@ public class CarRentalSystem
                     break;
 
                 case 3:
+
+                    // for renting we take customer details and update the various list
                     System.out.print("Enter customer name: ");
                     String customerName = sc.nextLine();
                     System.out.print("Enter customer email: ");
@@ -251,6 +264,9 @@ public class CarRentalSystem
                     System.out.print("Enter the Manufacturing Year of the vehicle to give on rent: ");
                     manufacturingYear = sc.nextInt();
                     sc.nextLine();
+                    System.out.println("Enter no of days to give on rent: ");
+                    int nodays = sc.nextInt();
+                    sc.nextLine();
 
                     Customer custome = new Customer(customerName, customerEmail);
                     boolean check = true;
@@ -258,6 +274,10 @@ public class CarRentalSystem
                         if (vehicle.getManufactyear() == manufacturingYear  && vehicle.getModel().equalsIgnoreCase(model)) {
                             rental.giveVehicleOnRent(vehicle);
                             custome.addVehicle(vehicle);
+
+                            // this is used to calculate total rental cost......
+                            int rentalCost = vehicle.calculateRentalCost(vehicle, nodays);
+                            System.out.println("Rental cost for " + nodays + " days: $" + rentalCost);
                             rental.addCustomer(custome);
                             check=false;
                             break;
@@ -297,6 +317,45 @@ public class CarRentalSystem
                     }
                     break;
                 case 6:
+                    System.out.print("Enter customer name: ");
+                    String customName = sc.nextLine();
+                    System.out.print("Enter customer email: ");
+                    String customEmail = sc.nextLine();
+                
+                    // Find the customer
+                    Customer returningCustomer = null;
+                    for (Customer customer : rental.getCustomers()) {
+                        if (customer.getName().equalsIgnoreCase(customName) && customer.getEmail().equalsIgnoreCase(customEmail)) {
+                            returningCustomer = customer;
+                            break;
+                        }
+                    }
+                
+                    if (returningCustomer != null) {
+                        // Prompt user for the model number of the vehicle to be returned
+                        System.out.print("Enter the model number of the vehicle to be returned: ");
+                        String returnModel = sc.nextLine();
+                
+                        // Find the vehicle in the rented vehicles of the customer
+                        Vehicle returningVehicle = null;
+                        for (Vehicle vehicle : returningCustomer.getRentedVehicles()) {
+                            if (vehicle.getModel().equalsIgnoreCase(returnModel)) {
+                                returningVehicle = vehicle;
+                                break;
+                            }
+                        }
+                
+                        if (returningVehicle != null) {
+                            // Return the vehicle
+                            rental.returnVehicle(returningCustomer, returningVehicle);
+                        } else {
+                            System.out.println("No vehicle found with the provided model number.");
+                        }
+                    } else {
+                        System.out.println("Customer not found.");
+                    }
+                    break;
+                case 7:
                     System.out.println("Exiting...");
                     sc.close();
                     System.exit(0);
