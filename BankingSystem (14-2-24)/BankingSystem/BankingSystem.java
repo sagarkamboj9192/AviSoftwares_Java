@@ -15,7 +15,7 @@ public class BankingSystem {
     public static HashMap<Integer, Integer> transactionaccount = new HashMap<>();      // Store TransactionId with accountNumber
 
 
-    // method to add account to the bank
+    // method to add account  to  the  bank 
     public void addaccount(BankAccount bank){
         accountDetails.add(bank);
         System.out.println("New account is added with account no: "+bank.getaccountno());

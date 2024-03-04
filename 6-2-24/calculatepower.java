@@ -21,7 +21,7 @@ public class calculatepower {
         System.out.print("Enter the power: ");
         int r = obj.nextInt();
 
-        calculatepower ob = new calculatepower();
+        calculatepower  ob = new calculatepower();
         System.out.println(ob.powerof(n1, r, 1));
         obj.close();
         
